@@ -1,0 +1,46 @@
+type EquipmentClass {
+  id: ID! @id
+  name: String!
+  code: String
+  description: String
+  equipmentClassProperties: [EquipmentClassProperty!]
+  equipments: [Equipment!] @relation(name: "EquipmentClassMapping")
+  parent: EquipmentClass @relation(name: "EquipmentClass")
+  children: [EquipmentClass!] @relation(name: "EquipmentClass")
+}
+
+type EquipmentClassProperty {
+  id: ID! @id
+  name: String!
+  code: String
+  description: String
+  equipmentClass: EquipmentClass!
+  parent: EquipmentClassProperty @relation(name:"EquipmentClassProperty")
+  children: [EquipmentClassProperty!] @relation(name:"EquipmentClassProperty")
+}
+
+type Equipment {
+  id: ID! @id
+  name: String!
+  code: String
+  description: String
+  equipmentProperties : [EquipmentProperty!]
+  equipmentClasses: [EquipmentClass!]! @relation(name: "EquipmentClassMapping", link: TABLE)
+  parent: Equipment @relation(name: "Equipment")
+  children: [Equipment!] @relation(name: "Equipment")
+}
+
+type EquipmentProperty {
+  id: ID! @id
+  name: String!
+  code: String
+  description: String
+  equipment: Equipment!
+  parent: EquipmentProperty @relation(name:"EquipmentProperty")
+  children: [EquipmentProperty!] @relation(name:"EquipmentProperty")
+}
+
+type EquipmentClassMapping @relationTable{
+  equipmentClass : EquipmentClass
+  equipment : Equipment
+}
