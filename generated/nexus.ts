@@ -1554,6 +1554,7 @@ export interface NexusGenFieldTypes {
     createEquipmentClassMapping: NexusGenRootTypes['EquipmentClassMapping']; // EquipmentClassMapping!
     createEquipmentClassProperty: NexusGenRootTypes['EquipmentClassProperty']; // EquipmentClassProperty!
     createEquipmentProperty: NexusGenRootTypes['EquipmentProperty']; // EquipmentProperty!
+    createSensor: NexusGenRootTypes['Sensor']; // Sensor!
     deleteEquipment: NexusGenRootTypes['Equipment'] | null; // Equipment
     deleteEquipmentClass: NexusGenRootTypes['EquipmentClass'] | null; // EquipmentClass
     deleteEquipmentClassProperty: NexusGenRootTypes['EquipmentClassProperty'] | null; // EquipmentClassProperty
@@ -1706,6 +1707,10 @@ export interface NexusGenArgTypes {
     }
     createEquipmentProperty: { // args
       data: NexusGenInputs['EquipmentPropertyCreateInput']; // EquipmentPropertyCreateInput!
+    }
+    createSensor: { // args
+      code?: string | null; // String
+      name?: string | null; // String
     }
     deleteEquipment: { // args
       where: NexusGenInputs['EquipmentWhereUniqueInput']; // EquipmentWhereUniqueInput!

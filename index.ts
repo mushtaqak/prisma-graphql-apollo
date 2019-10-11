@@ -1,9 +1,10 @@
 import { prisma } from "./generated/prisma-client";
 import datamodelInfo from "./generated/nexus-prisma";
 import * as path from "path";
-import { objectType, stringArg, idArg } from "nexus";
+import {  objectType, stringArg } from "nexus";
 import { prismaObjectType, makePrismaSchema } from "nexus-prisma";
 import { GraphQLServer } from "graphql-yoga";
+import Maybe from "graphql/tsutils/Maybe";
 
 const SensorType = objectType({
   name: "Sensor",
@@ -40,6 +41,18 @@ const Mutation = prismaObjectType({
   name: "Mutation",
   definition(t) {
     t.prismaFields(["*"]);
+    t.field("createSensor", {
+      type: "Sensor",
+      args: {
+        name: stringArg(),
+        code: stringArg(),
+      },
+      resolve: (_, { name, code }, ctx) =>
+        ctx.prisma.createEquipment({
+          code,
+          name
+        })
+    });
   }
 });
 
