@@ -4,7 +4,6 @@ import * as path from "path";
 import {  objectType, stringArg } from "nexus";
 import { prismaObjectType, makePrismaSchema } from "nexus-prisma";
 import { GraphQLServer } from "graphql-yoga";
-import Maybe from "graphql/tsutils/Maybe";
 
 const SensorType = objectType({
   name: "Sensor",
@@ -28,6 +27,7 @@ const Query = prismaObjectType({
     t.list.field("sensors", {
       type: "Sensor",
       resolve: async (_, args, ctx) => {
+        // TODO: attach equipmentClasses in query output
         return await ctx.prisma.equipments({
           where: { equipmentClasses_some: { code: "sensor" } }
         });
@@ -46,6 +46,7 @@ const Mutation = prismaObjectType({
       args: {
         name: stringArg(),
         code: stringArg(),
+        // TODO: attach equipmentClasses
       },
       resolve: (_, { name, code }, ctx) =>
         ctx.prisma.createEquipment({
