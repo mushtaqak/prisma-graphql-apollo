@@ -1,15 +1,37 @@
 import { prisma } from "./generated/prisma-client";
 import datamodelInfo from "./generated/nexus-prisma";
 import * as path from "path";
-import { stringArg, idArg } from "nexus";
+import { objectType, stringArg, idArg } from "nexus";
 import { prismaObjectType, makePrismaSchema } from "nexus-prisma";
 import { GraphQLServer } from "graphql-yoga";
+
+const SensorType = objectType({
+  name: "Sensor",
+  definition: t => {
+    t.string("code");
+    t.string("name");
+    t.id("id");
+    t.list.field("children", { type: "Equipment" });
+    t.list.field("equipmentClasses", { type: "EquipmentClass" });
+    t.list.field("equipmentProperties", { type: "EquipmentProperty" });
+    t.int("flow");
+  }
+});
 
 // Customize the "Query" building block
 const Query = prismaObjectType({
   name: "Query",
   definition(t) {
     t.prismaFields(["*"]);
+    // Add custom sensor query
+    t.list.field("sensors", {
+      type: "Sensor",
+      resolve: async (_, args, ctx) => {
+        return await ctx.prisma.equipments({
+          where: { equipmentClasses_some: { code: "sensor" } }
+        });
+      }
+    });
   }
 });
 
@@ -22,7 +44,7 @@ const Mutation = prismaObjectType({
 });
 
 const schema = makePrismaSchema({
-  types: [Query, Mutation],
+  types: [Query, SensorType, Mutation],
 
   prisma: {
     datamodelInfo,
