@@ -5,6 +5,20 @@ import { objectType, stringArg } from "nexus";
 import { prismaObjectType, makePrismaSchema } from "nexus-prisma";
 import { GraphQLServer } from "graphql-yoga";
 
+const equipmentWithEquipmentClassesFragment = `
+  fragment equipmentWithEquipmentClassesFragment on Equipment {
+    id
+    code
+    name
+    equipmentClasses
+      {
+      id
+      code
+      name
+    }
+  }
+  `;
+
 const SensorType = objectType({
   name: "Sensor",
   definition: t => {
@@ -21,25 +35,11 @@ const SensorType = objectType({
 const sensorsQueryType = {
   type: "Sensor",
   resolve: async (_, args, ctx) => {
-    // Attach equipmentClasses in query output
-    const equipmentClassesFragment = `
-      fragment SensorWithEquipmentClasses on Equipment {
-        id
-        code
-        name
-        equipmentClasses
-         {
-          id
-          code
-          name
-        }
-      }
-      `;
     return await ctx.prisma
       .equipments({
         where: { equipmentClasses_some: { code: "sensor" } }
       })
-      .$fragment(equipmentClassesFragment);
+      .$fragment(equipmentWithEquipmentClassesFragment); // Attach equipmentClasses in query output
   }
 };
 
@@ -48,13 +48,31 @@ const createSensorType = {
   args: {
     name: stringArg(),
     code: stringArg()
-    // TODO: attach equipmentClasses
   },
-  resolve: (_, { name, code }, ctx) =>
-    ctx.prisma.createEquipment({
-      code,
-      name
-    })
+  resolve: async (_, { name, code }, ctx) => {
+    const sensorEquipmentClasses = await prisma.equipmentClasses({
+      where: { code: "sensor" }
+    });
+    const equipmentClassID =
+      sensorEquipmentClasses.length > 0 ? sensorEquipmentClasses[0].id : "";
+
+    if (!equipmentClassID) {
+      throw new Error("Could not find any `sensor` equipment class.");
+    }
+
+    const createdSensor = await ctx.prisma
+      .createEquipment({
+        code,
+        name,
+        equipmentClasses: {
+          connect: {
+            id: equipmentClassID
+          }
+        }
+      })
+      .$fragment(equipmentWithEquipmentClassesFragment);
+    return createdSensor;
+  }
 };
 
 // Customize the "Query" building block
