@@ -1564,6 +1564,7 @@ export interface NexusGenFieldTypes {
     deleteManyEquipmentClassProperties: NexusGenRootTypes['BatchPayload']; // BatchPayload!
     deleteManyEquipmentProperties: NexusGenRootTypes['BatchPayload']; // BatchPayload!
     deleteManyEquipments: NexusGenRootTypes['BatchPayload']; // BatchPayload!
+    deleteSensor: NexusGenRootTypes['Sensor']; // Sensor!
     updateEquipment: NexusGenRootTypes['Equipment'] | null; // Equipment
     updateEquipmentClass: NexusGenRootTypes['EquipmentClass'] | null; // EquipmentClass
     updateEquipmentClassProperty: NexusGenRootTypes['EquipmentClassProperty'] | null; // EquipmentClassProperty
@@ -1572,6 +1573,7 @@ export interface NexusGenFieldTypes {
     updateManyEquipmentClassProperties: NexusGenRootTypes['BatchPayload']; // BatchPayload!
     updateManyEquipmentProperties: NexusGenRootTypes['BatchPayload']; // BatchPayload!
     updateManyEquipments: NexusGenRootTypes['BatchPayload']; // BatchPayload!
+    updateSensor: NexusGenRootTypes['Sensor']; // Sensor!
     upsertEquipment: NexusGenRootTypes['Equipment']; // Equipment!
     upsertEquipmentClass: NexusGenRootTypes['EquipmentClass']; // EquipmentClass!
     upsertEquipmentClassProperty: NexusGenRootTypes['EquipmentClassProperty']; // EquipmentClassProperty!
@@ -1739,6 +1741,9 @@ export interface NexusGenArgTypes {
     deleteManyEquipments: { // args
       where?: NexusGenInputs['EquipmentWhereInput'] | null; // EquipmentWhereInput
     }
+    deleteSensor: { // args
+      id?: string | null; // String
+    }
     updateEquipment: { // args
       data: NexusGenInputs['EquipmentUpdateInput']; // EquipmentUpdateInput!
       where: NexusGenInputs['EquipmentWhereUniqueInput']; // EquipmentWhereUniqueInput!
@@ -1770,6 +1775,11 @@ export interface NexusGenArgTypes {
     updateManyEquipments: { // args
       data: NexusGenInputs['EquipmentUpdateManyMutationInput']; // EquipmentUpdateManyMutationInput!
       where?: NexusGenInputs['EquipmentWhereInput'] | null; // EquipmentWhereInput
+    }
+    updateSensor: { // args
+      code?: string | null; // String
+      id?: string | null; // String
+      name?: string | null; // String
     }
     upsertEquipment: { // args
       create: NexusGenInputs['EquipmentCreateInput']; // EquipmentCreateInput!

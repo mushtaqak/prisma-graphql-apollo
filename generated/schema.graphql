@@ -1516,6 +1516,7 @@ type Mutation {
   deleteManyEquipmentClassProperties(where: EquipmentClassPropertyWhereInput): BatchPayload!
   deleteManyEquipmentProperties(where: EquipmentPropertyWhereInput): BatchPayload!
   deleteManyEquipments(where: EquipmentWhereInput): BatchPayload!
+  deleteSensor(id: String): Sensor!
   updateEquipment(data: EquipmentUpdateInput!, where: EquipmentWhereUniqueInput!): Equipment
   updateEquipmentClass(data: EquipmentClassUpdateInput!, where: EquipmentClassWhereUniqueInput!): EquipmentClass
   updateEquipmentClassProperty(data: EquipmentClassPropertyUpdateInput!, where: EquipmentClassPropertyWhereUniqueInput!): EquipmentClassProperty
@@ -1524,6 +1525,7 @@ type Mutation {
   updateManyEquipmentClassProperties(data: EquipmentClassPropertyUpdateManyMutationInput!, where: EquipmentClassPropertyWhereInput): BatchPayload!
   updateManyEquipmentProperties(data: EquipmentPropertyUpdateManyMutationInput!, where: EquipmentPropertyWhereInput): BatchPayload!
   updateManyEquipments(data: EquipmentUpdateManyMutationInput!, where: EquipmentWhereInput): BatchPayload!
+  updateSensor(code: String, id: String, name: String): Sensor!
   upsertEquipment(create: EquipmentCreateInput!, update: EquipmentUpdateInput!, where: EquipmentWhereUniqueInput!): Equipment!
   upsertEquipmentClass(create: EquipmentClassCreateInput!, update: EquipmentClassUpdateInput!, where: EquipmentClassWhereUniqueInput!): EquipmentClass!
   upsertEquipmentClassProperty(create: EquipmentClassPropertyCreateInput!, update: EquipmentClassPropertyUpdateInput!, where: EquipmentClassPropertyWhereUniqueInput!): EquipmentClassProperty!
