@@ -1507,6 +1507,7 @@ type Mutation {
   createEquipmentClassProperty(data: EquipmentClassPropertyCreateInput!): EquipmentClassProperty!
   createEquipmentProperty(data: EquipmentPropertyCreateInput!): EquipmentProperty!
   createSensor(code: String, name: String): Sensor!
+  createSensorWithClass(classCode: String, className: String, code: String, name: String): Sensor!
   deleteEquipment(where: EquipmentWhereUniqueInput!): Equipment
   deleteEquipmentClass(where: EquipmentClassWhereUniqueInput!): EquipmentClass
   deleteEquipmentClassProperty(where: EquipmentClassPropertyWhereUniqueInput!): EquipmentClassProperty

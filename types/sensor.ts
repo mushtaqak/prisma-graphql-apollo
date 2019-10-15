@@ -58,6 +58,31 @@ export const createSensor = {
   }
 };
 
+export const createSensorWithClass = {
+  type: "Sensor",
+  args: {
+    name: stringArg(),
+    code: stringArg(),
+    className: stringArg(),
+    classCode: stringArg()
+  },
+  resolve: async (_, { name, code, className, classCode }, ctx) => {
+    const createdSensor = await ctx.prisma
+      .createEquipment({
+        code,
+        name,
+        equipmentClasses: {
+          create: {
+            code: className,
+            name: className
+          }
+        }
+      })
+      .$fragment(equipmentWithEquipmentClassesFragment);
+    return createdSensor;
+  }
+};
+
 export const updateSensor = {
   type: "Sensor",
   args: {

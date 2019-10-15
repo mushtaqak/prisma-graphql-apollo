@@ -7,6 +7,7 @@ import { GraphQLServer } from "graphql-yoga";
 import {
   SensorType,
   createSensor,
+  createSensorWithClass,
   deleteSensor,
   sensorsQuery,
   updateSensor
@@ -28,6 +29,7 @@ const Mutation = prismaObjectType({
   definition(t) {
     t.prismaFields(["*"]);
     t.field("createSensor", createSensor);
+    t.field("createSensorWithClass", createSensorWithClass);
     t.field("updateSensor", updateSensor);
     t.field("deleteSensor", deleteSensor);
   }
