@@ -10,6 +10,7 @@ import {
   createSensor,
   createSensorWithClass,
   deleteSensor,
+  sensorEquipmentsQuery,
   sensorsQuery,
   updateSensor
 } from "./types/sensor";
@@ -21,6 +22,7 @@ const Query = prismaObjectType({
     t.prismaFields(["*"]);
     // Add custom sensor query
     t.list.field("sensors", sensorsQuery);
+    t.list.field("sensorEquipments", sensorEquipmentsQuery);
   }
 });
 

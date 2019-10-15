@@ -26,6 +26,17 @@ export const sensorsQuery = {
   }
 };
 
+// Extend Equipment type to have a `sensorEquipmentsQuery` to Query object.
+export const sensorEquipmentsQuery = {
+  type: "Equipment",
+  resolve: async (_, args, ctx) => {
+    return await ctx.prisma.equipments({
+      where: { equipmentClasses_some: { code: "sensor" } }
+    });
+    // .$fragment(equipmentWithEquipmentClassesFragment); // Attach equipmentClasses in query output
+  }
+};
+
 export const createSensor = {
   type: "Sensor",
   args: {

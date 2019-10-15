@@ -1652,6 +1652,7 @@ export interface NexusGenFieldTypes {
     equipmentProperty: NexusGenRootTypes['EquipmentProperty'] | null; // EquipmentProperty
     equipments: NexusGenRootTypes['Equipment'][]; // [Equipment!]!
     equipmentsConnection: NexusGenRootTypes['EquipmentConnection']; // EquipmentConnection!
+    sensorEquipments: NexusGenRootTypes['Equipment'][]; // [Equipment!]!
     sensors: NexusGenRootTypes['Sensor'][]; // [Sensor!]!
   }
   Sensor: { // field return type
