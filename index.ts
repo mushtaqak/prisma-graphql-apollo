@@ -1,6 +1,7 @@
 import { prisma } from "./generated/prisma-client";
 import datamodelInfo from "./generated/nexus-prisma";
 import * as path from "path";
+import { subscriptionField } from "nexus";
 import { prismaObjectType, makePrismaSchema } from "nexus-prisma";
 import { GraphQLServer } from "graphql-yoga";
 
@@ -35,8 +36,40 @@ const Mutation = prismaObjectType({
   }
 });
 
+// This creates a global Subscription type that has a field post which yields an async iterator
+export const EquipmentSubscription = subscriptionField("equipment", {
+  type: "EquipmentSubscriptionPayload",
+  subscribe(root, args, ctx) {
+    return ctx.prisma.$subscribe.equipment({
+      mutation_in: ["CREATED"]
+    }) as any; // Cast to any because of typings mismatch
+  },
+  resolve(payload) {
+    console.log("resolve ... ", payload);
+    return payload;
+  }
+});
+
+export const EquipmentClassSubscription = subscriptionField("equipmentClass", {
+  type: "EquipmentClassSubscriptionPayload",
+  subscribe(root, args, ctx) {
+    return ctx.prisma.$subscribe.equipmentClass({
+      mutation_in: ["CREATED"]
+    }) as any; // Cast to any because of typings mismatch
+  },
+  resolve(payload) {
+    return payload;
+  }
+});
+
 const schema = makePrismaSchema({
-  types: [Query, SensorType, Mutation],
+  types: [
+    Query,
+    SensorType,
+    Mutation,
+    EquipmentSubscription,
+    EquipmentClassSubscription
+  ],
 
   prisma: {
     datamodelInfo,
