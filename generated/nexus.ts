@@ -1209,6 +1209,7 @@ export interface NexusGenEnums {
   EquipmentClassPropertyOrderByInput: "code_ASC" | "code_DESC" | "createdAt_ASC" | "createdAt_DESC" | "description_ASC" | "description_DESC" | "id_ASC" | "id_DESC" | "name_ASC" | "name_DESC" | "updatedAt_ASC" | "updatedAt_DESC"
   EquipmentOrderByInput: "code_ASC" | "code_DESC" | "createdAt_ASC" | "createdAt_DESC" | "description_ASC" | "description_DESC" | "id_ASC" | "id_DESC" | "name_ASC" | "name_DESC" | "updatedAt_ASC" | "updatedAt_DESC"
   EquipmentPropertyOrderByInput: "code_ASC" | "code_DESC" | "createdAt_ASC" | "createdAt_DESC" | "description_ASC" | "description_DESC" | "id_ASC" | "id_DESC" | "name_ASC" | "name_DESC" | "updatedAt_ASC" | "updatedAt_DESC"
+  MutationType: "CREATED" | "DELETED" | "UPDATED"
 }
 
 export interface NexusGenRootTypes {
@@ -1259,6 +1260,12 @@ export interface NexusGenRootTypes {
     cursor: string; // String!
     node: NexusGenRootTypes['EquipmentClassMapping']; // EquipmentClassMapping!
   }
+  EquipmentClassPreviousValues: { // root type
+    code?: string | null; // String
+    description?: string | null; // String
+    id: string; // ID!
+    name: string; // String!
+  }
   EquipmentClassProperty: { // root type
     code?: string | null; // String
     description?: string | null; // String
@@ -1273,6 +1280,12 @@ export interface NexusGenRootTypes {
     cursor: string; // String!
     node: NexusGenRootTypes['EquipmentClassProperty']; // EquipmentClassProperty!
   }
+  EquipmentClassSubscriptionPayload: { // root type
+    mutation: NexusGenEnums['MutationType']; // MutationType!
+    node?: NexusGenRootTypes['EquipmentClass'] | null; // EquipmentClass
+    previousValues?: NexusGenRootTypes['EquipmentClassPreviousValues'] | null; // EquipmentClassPreviousValues
+    updatedFields?: string[] | null; // [String!]
+  }
   EquipmentConnection: { // root type
     edges: NexusGenRootTypes['EquipmentEdge'][]; // [EquipmentEdge!]!
     pageInfo: NexusGenRootTypes['PageInfo']; // PageInfo!
@@ -1280,6 +1293,12 @@ export interface NexusGenRootTypes {
   EquipmentEdge: { // root type
     cursor: string; // String!
     node: NexusGenRootTypes['Equipment']; // Equipment!
+  }
+  EquipmentPreviousValues: { // root type
+    code?: string | null; // String
+    description?: string | null; // String
+    id: string; // ID!
+    name: string; // String!
   }
   EquipmentProperty: { // root type
     code?: string | null; // String
@@ -1294,6 +1313,12 @@ export interface NexusGenRootTypes {
   EquipmentPropertyEdge: { // root type
     cursor: string; // String!
     node: NexusGenRootTypes['EquipmentProperty']; // EquipmentProperty!
+  }
+  EquipmentSubscriptionPayload: { // root type
+    mutation: NexusGenEnums['MutationType']; // MutationType!
+    node?: NexusGenRootTypes['Equipment'] | null; // Equipment
+    previousValues?: NexusGenRootTypes['EquipmentPreviousValues'] | null; // EquipmentPreviousValues
+    updatedFields?: string[] | null; // [String!]
   }
   Mutation: {};
   PageInfo: { // root type
@@ -1312,6 +1337,7 @@ export interface NexusGenRootTypes {
     id: string; // ID!
     name: string; // String!
   }
+  Subscription: {};
   String: string;
   Int: number;
   Float: number;
@@ -1440,6 +1466,7 @@ export interface NexusGenAllTypes extends NexusGenRootTypes {
   EquipmentClassPropertyOrderByInput: NexusGenEnums['EquipmentClassPropertyOrderByInput'];
   EquipmentOrderByInput: NexusGenEnums['EquipmentOrderByInput'];
   EquipmentPropertyOrderByInput: NexusGenEnums['EquipmentPropertyOrderByInput'];
+  MutationType: NexusGenEnums['MutationType'];
 }
 
 export interface NexusGenFieldTypes {
@@ -1503,6 +1530,12 @@ export interface NexusGenFieldTypes {
     cursor: string; // String!
     node: NexusGenRootTypes['EquipmentClassMapping']; // EquipmentClassMapping!
   }
+  EquipmentClassPreviousValues: { // field return type
+    code: string | null; // String
+    description: string | null; // String
+    id: string; // ID!
+    name: string; // String!
+  }
   EquipmentClassProperty: { // field return type
     children: NexusGenRootTypes['EquipmentClassProperty'][] | null; // [EquipmentClassProperty!]
     code: string | null; // String
@@ -1521,6 +1554,12 @@ export interface NexusGenFieldTypes {
     cursor: string; // String!
     node: NexusGenRootTypes['EquipmentClassProperty']; // EquipmentClassProperty!
   }
+  EquipmentClassSubscriptionPayload: { // field return type
+    mutation: NexusGenEnums['MutationType']; // MutationType!
+    node: NexusGenRootTypes['EquipmentClass'] | null; // EquipmentClass
+    previousValues: NexusGenRootTypes['EquipmentClassPreviousValues'] | null; // EquipmentClassPreviousValues
+    updatedFields: string[] | null; // [String!]
+  }
   EquipmentConnection: { // field return type
     aggregate: NexusGenRootTypes['AggregateEquipment']; // AggregateEquipment!
     edges: NexusGenRootTypes['EquipmentEdge'][]; // [EquipmentEdge!]!
@@ -1529,6 +1568,12 @@ export interface NexusGenFieldTypes {
   EquipmentEdge: { // field return type
     cursor: string; // String!
     node: NexusGenRootTypes['Equipment']; // Equipment!
+  }
+  EquipmentPreviousValues: { // field return type
+    code: string | null; // String
+    description: string | null; // String
+    id: string; // ID!
+    name: string; // String!
   }
   EquipmentProperty: { // field return type
     children: NexusGenRootTypes['EquipmentProperty'][] | null; // [EquipmentProperty!]
@@ -1547,6 +1592,12 @@ export interface NexusGenFieldTypes {
   EquipmentPropertyEdge: { // field return type
     cursor: string; // String!
     node: NexusGenRootTypes['EquipmentProperty']; // EquipmentProperty!
+  }
+  EquipmentSubscriptionPayload: { // field return type
+    mutation: NexusGenEnums['MutationType']; // MutationType!
+    node: NexusGenRootTypes['Equipment'] | null; // Equipment
+    previousValues: NexusGenRootTypes['EquipmentPreviousValues'] | null; // EquipmentPreviousValues
+    updatedFields: string[] | null; // [String!]
   }
   Mutation: { // field return type
     createEquipment: NexusGenRootTypes['Equipment']; // Equipment!
@@ -1611,6 +1662,10 @@ export interface NexusGenFieldTypes {
     flow: number; // Int!
     id: string; // ID!
     name: string; // String!
+  }
+  Subscription: { // field return type
+    equipment: NexusGenRootTypes['EquipmentSubscriptionPayload']; // EquipmentSubscriptionPayload!
+    equipmentClass: NexusGenRootTypes['EquipmentClassSubscriptionPayload']; // EquipmentClassSubscriptionPayload!
   }
 }
 
@@ -1920,11 +1975,11 @@ export interface NexusGenAbstractResolveReturnTypes {
 
 export interface NexusGenInheritedFields {}
 
-export type NexusGenObjectNames = "AggregateEquipment" | "AggregateEquipmentClass" | "AggregateEquipmentClassMapping" | "AggregateEquipmentClassProperty" | "AggregateEquipmentProperty" | "BatchPayload" | "Equipment" | "EquipmentClass" | "EquipmentClassConnection" | "EquipmentClassEdge" | "EquipmentClassMapping" | "EquipmentClassMappingConnection" | "EquipmentClassMappingEdge" | "EquipmentClassProperty" | "EquipmentClassPropertyConnection" | "EquipmentClassPropertyEdge" | "EquipmentConnection" | "EquipmentEdge" | "EquipmentProperty" | "EquipmentPropertyConnection" | "EquipmentPropertyEdge" | "Mutation" | "PageInfo" | "Query" | "Sensor";
+export type NexusGenObjectNames = "AggregateEquipment" | "AggregateEquipmentClass" | "AggregateEquipmentClassMapping" | "AggregateEquipmentClassProperty" | "AggregateEquipmentProperty" | "BatchPayload" | "Equipment" | "EquipmentClass" | "EquipmentClassConnection" | "EquipmentClassEdge" | "EquipmentClassMapping" | "EquipmentClassMappingConnection" | "EquipmentClassMappingEdge" | "EquipmentClassPreviousValues" | "EquipmentClassProperty" | "EquipmentClassPropertyConnection" | "EquipmentClassPropertyEdge" | "EquipmentClassSubscriptionPayload" | "EquipmentConnection" | "EquipmentEdge" | "EquipmentPreviousValues" | "EquipmentProperty" | "EquipmentPropertyConnection" | "EquipmentPropertyEdge" | "EquipmentSubscriptionPayload" | "Mutation" | "PageInfo" | "Query" | "Sensor" | "Subscription";
 
 export type NexusGenInputNames = "EquipmentClassCreateInput" | "EquipmentClassCreateManyWithoutEquipmentsInput" | "EquipmentClassCreateManyWithoutParentInput" | "EquipmentClassCreateOneInput" | "EquipmentClassCreateOneWithoutChildrenInput" | "EquipmentClassCreateOneWithoutEquipmentClassPropertiesInput" | "EquipmentClassCreateWithoutChildrenInput" | "EquipmentClassCreateWithoutEquipmentClassPropertiesInput" | "EquipmentClassCreateWithoutEquipmentsInput" | "EquipmentClassCreateWithoutParentInput" | "EquipmentClassMappingCreateInput" | "EquipmentClassMappingWhereInput" | "EquipmentClassPropertyCreateInput" | "EquipmentClassPropertyCreateManyWithoutEquipmentClassInput" | "EquipmentClassPropertyCreateManyWithoutParentInput" | "EquipmentClassPropertyCreateOneWithoutChildrenInput" | "EquipmentClassPropertyCreateWithoutChildrenInput" | "EquipmentClassPropertyCreateWithoutEquipmentClassInput" | "EquipmentClassPropertyCreateWithoutParentInput" | "EquipmentClassPropertyScalarWhereInput" | "EquipmentClassPropertyUpdateInput" | "EquipmentClassPropertyUpdateManyDataInput" | "EquipmentClassPropertyUpdateManyMutationInput" | "EquipmentClassPropertyUpdateManyWithWhereNestedInput" | "EquipmentClassPropertyUpdateManyWithoutEquipmentClassInput" | "EquipmentClassPropertyUpdateManyWithoutParentInput" | "EquipmentClassPropertyUpdateOneWithoutChildrenInput" | "EquipmentClassPropertyUpdateWithWhereUniqueWithoutEquipmentClassInput" | "EquipmentClassPropertyUpdateWithWhereUniqueWithoutParentInput" | "EquipmentClassPropertyUpdateWithoutChildrenDataInput" | "EquipmentClassPropertyUpdateWithoutEquipmentClassDataInput" | "EquipmentClassPropertyUpdateWithoutParentDataInput" | "EquipmentClassPropertyUpsertWithWhereUniqueWithoutEquipmentClassInput" | "EquipmentClassPropertyUpsertWithWhereUniqueWithoutParentInput" | "EquipmentClassPropertyUpsertWithoutChildrenInput" | "EquipmentClassPropertyWhereInput" | "EquipmentClassPropertyWhereUniqueInput" | "EquipmentClassScalarWhereInput" | "EquipmentClassUpdateInput" | "EquipmentClassUpdateManyDataInput" | "EquipmentClassUpdateManyMutationInput" | "EquipmentClassUpdateManyWithWhereNestedInput" | "EquipmentClassUpdateManyWithoutEquipmentsInput" | "EquipmentClassUpdateManyWithoutParentInput" | "EquipmentClassUpdateOneRequiredWithoutEquipmentClassPropertiesInput" | "EquipmentClassUpdateOneWithoutChildrenInput" | "EquipmentClassUpdateWithWhereUniqueWithoutEquipmentsInput" | "EquipmentClassUpdateWithWhereUniqueWithoutParentInput" | "EquipmentClassUpdateWithoutChildrenDataInput" | "EquipmentClassUpdateWithoutEquipmentClassPropertiesDataInput" | "EquipmentClassUpdateWithoutEquipmentsDataInput" | "EquipmentClassUpdateWithoutParentDataInput" | "EquipmentClassUpsertWithWhereUniqueWithoutEquipmentsInput" | "EquipmentClassUpsertWithWhereUniqueWithoutParentInput" | "EquipmentClassUpsertWithoutChildrenInput" | "EquipmentClassUpsertWithoutEquipmentClassPropertiesInput" | "EquipmentClassWhereInput" | "EquipmentClassWhereUniqueInput" | "EquipmentCreateInput" | "EquipmentCreateManyWithoutEquipmentClassesInput" | "EquipmentCreateManyWithoutParentInput" | "EquipmentCreateOneInput" | "EquipmentCreateOneWithoutChildrenInput" | "EquipmentCreateOneWithoutEquipmentPropertiesInput" | "EquipmentCreateWithoutChildrenInput" | "EquipmentCreateWithoutEquipmentClassesInput" | "EquipmentCreateWithoutEquipmentPropertiesInput" | "EquipmentCreateWithoutParentInput" | "EquipmentPropertyCreateInput" | "EquipmentPropertyCreateManyWithoutEquipmentInput" | "EquipmentPropertyCreateManyWithoutParentInput" | "EquipmentPropertyCreateOneWithoutChildrenInput" | "EquipmentPropertyCreateWithoutChildrenInput" | "EquipmentPropertyCreateWithoutEquipmentInput" | "EquipmentPropertyCreateWithoutParentInput" | "EquipmentPropertyScalarWhereInput" | "EquipmentPropertyUpdateInput" | "EquipmentPropertyUpdateManyDataInput" | "EquipmentPropertyUpdateManyMutationInput" | "EquipmentPropertyUpdateManyWithWhereNestedInput" | "EquipmentPropertyUpdateManyWithoutEquipmentInput" | "EquipmentPropertyUpdateManyWithoutParentInput" | "EquipmentPropertyUpdateOneWithoutChildrenInput" | "EquipmentPropertyUpdateWithWhereUniqueWithoutEquipmentInput" | "EquipmentPropertyUpdateWithWhereUniqueWithoutParentInput" | "EquipmentPropertyUpdateWithoutChildrenDataInput" | "EquipmentPropertyUpdateWithoutEquipmentDataInput" | "EquipmentPropertyUpdateWithoutParentDataInput" | "EquipmentPropertyUpsertWithWhereUniqueWithoutEquipmentInput" | "EquipmentPropertyUpsertWithWhereUniqueWithoutParentInput" | "EquipmentPropertyUpsertWithoutChildrenInput" | "EquipmentPropertyWhereInput" | "EquipmentPropertyWhereUniqueInput" | "EquipmentScalarWhereInput" | "EquipmentUpdateInput" | "EquipmentUpdateManyDataInput" | "EquipmentUpdateManyMutationInput" | "EquipmentUpdateManyWithWhereNestedInput" | "EquipmentUpdateManyWithoutEquipmentClassesInput" | "EquipmentUpdateManyWithoutParentInput" | "EquipmentUpdateOneRequiredWithoutEquipmentPropertiesInput" | "EquipmentUpdateOneWithoutChildrenInput" | "EquipmentUpdateWithWhereUniqueWithoutEquipmentClassesInput" | "EquipmentUpdateWithWhereUniqueWithoutParentInput" | "EquipmentUpdateWithoutChildrenDataInput" | "EquipmentUpdateWithoutEquipmentClassesDataInput" | "EquipmentUpdateWithoutEquipmentPropertiesDataInput" | "EquipmentUpdateWithoutParentDataInput" | "EquipmentUpsertWithWhereUniqueWithoutEquipmentClassesInput" | "EquipmentUpsertWithWhereUniqueWithoutParentInput" | "EquipmentUpsertWithoutChildrenInput" | "EquipmentUpsertWithoutEquipmentPropertiesInput" | "EquipmentWhereInput" | "EquipmentWhereUniqueInput";
 
-export type NexusGenEnumNames = "EquipmentClassMappingOrderByInput" | "EquipmentClassOrderByInput" | "EquipmentClassPropertyOrderByInput" | "EquipmentOrderByInput" | "EquipmentPropertyOrderByInput";
+export type NexusGenEnumNames = "EquipmentClassMappingOrderByInput" | "EquipmentClassOrderByInput" | "EquipmentClassPropertyOrderByInput" | "EquipmentOrderByInput" | "EquipmentPropertyOrderByInput" | "MutationType";
 
 export type NexusGenInterfaceNames = never;
 

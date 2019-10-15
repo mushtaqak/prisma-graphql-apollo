@@ -188,6 +188,13 @@ enum EquipmentClassOrderByInput {
   updatedAt_DESC
 }
 
+type EquipmentClassPreviousValues {
+  code: String
+  description: String
+  id: ID!
+  name: String!
+}
+
 type EquipmentClassProperty {
   children(after: String, before: String, first: Int, last: Int, orderBy: EquipmentClassPropertyOrderByInput, skip: Int, where: EquipmentClassPropertyWhereInput): [EquipmentClassProperty!]
   code: String
@@ -581,6 +588,13 @@ input EquipmentClassScalarWhereInput {
   OR: [EquipmentClassScalarWhereInput!]
 }
 
+type EquipmentClassSubscriptionPayload {
+  mutation: MutationType!
+  node: EquipmentClass
+  previousValues: EquipmentClassPreviousValues
+  updatedFields: [String!]
+}
+
 input EquipmentClassUpdateInput {
   children: EquipmentClassUpdateManyWithoutParentInput
   code: String
@@ -892,6 +906,13 @@ enum EquipmentOrderByInput {
   name_DESC
   updatedAt_ASC
   updatedAt_DESC
+}
+
+type EquipmentPreviousValues {
+  code: String
+  description: String
+  id: ID!
+  name: String!
 }
 
 type EquipmentProperty {
@@ -1287,6 +1308,13 @@ input EquipmentScalarWhereInput {
   OR: [EquipmentScalarWhereInput!]
 }
 
+type EquipmentSubscriptionPayload {
+  mutation: MutationType!
+  node: Equipment
+  previousValues: EquipmentPreviousValues
+  updatedFields: [String!]
+}
+
 input EquipmentUpdateInput {
   children: EquipmentUpdateManyWithoutParentInput
   code: String
@@ -1533,6 +1561,12 @@ type Mutation {
   upsertEquipmentProperty(create: EquipmentPropertyCreateInput!, update: EquipmentPropertyUpdateInput!, where: EquipmentPropertyWhereUniqueInput!): EquipmentProperty!
 }
 
+enum MutationType {
+  CREATED
+  DELETED
+  UPDATED
+}
+
 type PageInfo {
   endCursor: String
   hasNextPage: Boolean!
@@ -1566,4 +1600,9 @@ type Sensor {
   flow: Int!
   id: ID!
   name: String!
+}
+
+type Subscription {
+  equipment: EquipmentSubscriptionPayload!
+  equipmentClass: EquipmentClassSubscriptionPayload!
 }
