@@ -1,0 +1,37 @@
+type Equipment {
+  id: ID! @id
+  name: String!
+  code: String!
+  description: String
+  parent: Equipment
+  EquipmentProperties: [EquipmentProperty]
+  EquipmentClass: EquipmentClass
+}
+
+type EquipmentProperty {
+  id: ID! @id
+  name: String!
+  code: String!
+  description: String
+  parent: EquipmentProperty
+  Equipment: Equipment!
+}
+
+type EquipmentClass {
+  id: ID! @id
+  name: String!
+  code: String!
+  description: String
+  parent: EquipmentClass
+  Equipment: Equipment
+  EquipmentClassProperties: [EquipmentClassProperty]
+}
+
+type EquipmentClassProperty {
+  id: ID! @id
+  name: String!
+  code: String!
+  description: String
+  parent: EquipmentClassProperty
+  EquipmentClass: EquipmentClass!
+}
